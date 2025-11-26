@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CITASalud - Iniciar Sesión</title>
+    <link rel="stylesheet" href="../css/login.css?v=2">
+</head>
+<body>
+    <div class="main-content">
+        <div class="login-container">
+            <h1>Iniciar Sesión en CITASalud</h1>
+
+            <div id="message-container" class="message-container hidden" role="alert" aria-live="assertive"></div>
+
+            <form id="login-form">
+                <div class="input-group">
+                    <label for="documento">Número de documento de identidad:</label>
+                    <!-- Eliminado tabindex="1" -->
+                    <input type="text" id="documento" name="documento" required aria-required="true">
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Contraseña:</label>
+                    <div class="password-group">
+                        <!-- Eliminado tabindex="2" -->
+                        <input type="password" id="password" name="password" required aria-required="true">
+                        
+                        <!-- REEMPLAZADO: span con role="button" por un elemento button nativo para mejor accesibilidad -->
+                        <!-- AÑADIDO: onkeydown para asegurar el manejo de teclado si fuera necesario, aunque el botón lo maneja por defecto. -->
+                        <button type="button" class="password-toggle" id="toggle-password" aria-label="Mostrar contraseña" onkeydown="/* Logic in login.js */">
+                            🔒
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Eliminado tabindex="4" -->
+                <button type="submit" id="login-button" class="btn primary">Iniciar Sesión</button>
+
+                <!-- Eliminado tabindex="5" -->
+                <a href="#" id="forgot-password-link">¿Olvidó su contraseña?</a>
+            </form>
+        </div>
+    </div>
+
+    <!-- CORRECCIÓN: Usando <dialog> en lugar de <div> con role="dialog" para accesibilidad nativa -->
+    <dialog id="forgot-password-modal" class="modal hidden"
+        aria-labelledby="forgot-password-title">
+        <div class="modal-content">
+            <!-- Cambiado span a button y tabindex eliminado ya que button es enfocable por defecto -->
+            <button type="button" class="close-button" id="close-forgot-modal" aria-label="Cerrar modal">&times;</button>
+            <h2 id="forgot-password-title">Recuperar Contraseña</h2>
+            <p>Ingrese su número de documento de identidad. Le enviaremos un correo para restablecerla.</p>
+
+            <div id="forgot-message" class="message-container hidden" role="alert" aria-live="assertive"></div>
+
+            <form id="forgot-password-form">
+                <div class="input-group">
+                    <label for="forgot-documento">Documento de identidad:</label>
+                    <input type="text" id="forgot-documento" name="documento" required>
+                </div>
+                <button type="submit" class="btn primary">Enviar Correo</button>
+            </form>
+        </div>
+    </dialog>
+
+    <!-- CORRECCIÓN: Usando <dialog> en lugar de <div> con role="dialog" para accesibilidad nativa -->
+    <dialog id="session-active-modal" class="modal hidden"
+        aria-labelledby="session-active-title">
+        <div class="modal-content">
+            <h2 id="session-active-title">Alerta de Sesión Activa</h2>
+            <p id="session-active-msg">Ya tiene una sesión activa en otro dispositivo. ¿Desea cerrar la sesión anterior
+                e iniciar una nueva?</p>
+            <div class="button-group">
+                <button type="button" id="force-login-button" class="btn primary">Cerrar sesión anterior e
+                    Iniciar</button>
+                <button type="button" id="cancel-login-button" class="btn secondary">Cancelar</button>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- CORRECCIÓN: Usando <dialog> en lugar de <div> con role="dialog" para accesibilidad nativa -->
+    <dialog id="permission-modal" class="modal hidden">
+        <div class="modal-content">
+            <!-- Cambiado span a button -->
+            <button type="button" class="close-button" aria-label="Cerrar">&times;</button>
+            <h2 id="modal-title">❌ Acceso Restringido</h2>
+            <p id="modal-message">No tiene permisos para acceder al módulo de gestión de citas. Si cree que esto es un
+                error, comuníquese con nosotros al correo **notificaciones.citasalud@gmail.com**.</p>
+            <button id="modal-back-button" class="btn btn-primary">Volver al Inicio de Sesión</button>
+        </div>
+    </dialog>
+
+    <script src="../js/login.js"></script>
+</body>
+</html>
